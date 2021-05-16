@@ -1,0 +1,241 @@
+// bubble sort
+package Sorting;
+
+public class bubble {
+public static void main(String srgs[]) {
+	int a[]= {2,5,4,3,1};
+	int n=a.length;
+	for(int i=0;i<n-1;i++) {
+		boolean b=false;
+		for(int j=0;j<n-i-1;j++) {
+			if(a[j+1]<a[j]) {
+				b=true;
+				int t=a[j];
+				a[j]=a[j+1];
+				a[j+1]=t;
+			}
+		}
+		if(b==false)break;
+	}
+	for(int i:a) {
+		System.out.print(i);
+	}
+}
+}
+
+
+
+//selection sort
+package Sorting;
+
+public class Selection {
+public static void main(String args[]) {
+	int a[]= {3,1,6,2,5,4};
+	int n=a.length;
+	for(int i=0;i<n;i++) {
+		int m=i;
+		for(int j=i;j<n;j++) {
+			if(a[j]<a[m]) {
+				m=j;
+			}
+		}
+		int temp=a[i];
+		a[i]=a[m];
+		a[m]=temp;
+	}
+	for(int i:a)System.out.print(i);
+}
+}
+
+
+//insertion sort
+package Sorting;
+
+public class insertion {
+public static void main(String args[]) {
+	int a[]= {2,4,5,3,1};
+	int n=a.length;
+	for(int i=1;i<n;i++) {
+		int temp=a[i];
+		int j=i-1;
+		while(j>=0 && a[j]>temp) {
+			a[j+1]=a[j];
+			j--;
+		}
+		a[j+1]=temp;
+	}
+	for(int i:a) {
+		System.out.print(i);
+	}
+}
+}
+
+
+
+
+//quicksort
+package Sorting;
+
+public class quicksort {
+	static int a[]= {2,4,5,3,1,9,6,7,0,8,10};
+public static void main(String args[]) {
+	
+	int n=a.length;
+	quicksortrecursion(a,0,n-1);
+	 prnt(a);
+}
+static void quicksortrecursion(int a[],int l,int h) {
+	if(l<h) {
+	int pivot=partition(a,l,h);
+	 quicksortrecursion(a,l,pivot);
+	 quicksortrecursion(a,pivot+1,h);
+	
+}}
+static int partition(int a[],int l,int h) {
+	int pivot=a[l];
+	int i=l;
+	int j=h;
+	
+	
+	while(i<j) {
+	while(a[i]<pivot)i++;
+	while(a[j]>pivot)j--;
+	
+	if(i<j) {
+		int temp=a[i];
+		a[i]=a[j];
+		a[j]=temp;
+		i++;
+		j--;
+	}
+	}
+	int t=a[j];
+	a[j]=a[l];
+	a[l]=t;
+	return j;
+}
+static void prnt(int a[]) {
+	for(int i:a) {
+		System.out.print(i);
+	}
+}
+}
+
+
+
+
+
+
+
+//merge sort
+package Sorting;
+
+public class mergesort {
+	static int a[]= {2,3,5,4,1};
+	static int n=a.length;
+public static void main(String args[]) {
+	
+	mergeSort(a,0,n-1);
+	
+	for(int k:a) {
+		System.out.print(k);
+	}
+}
+static void mergeSort(int Arr[], int start, int end) {
+
+	if(start < end) {
+		int mid = (start + end) / 2;
+		mergeSort(Arr, start, mid);
+		mergeSort(Arr, mid+1, end);
+		merge(Arr, start, mid, end);
+	}
+}
+static int b[]=new int[n];
+static void merge(int Arr[], int start, int mid, int end) {
+
+	// create a temp array
+	int temp[] = new int[n];
+
+	// crawlers for both intervals and for temp
+	int i = start, j = mid+1, k = 0;
+
+	// traverse both arrays and in each iteration add smaller of both elements in temp 
+	while(i <= mid && j <= end) {
+		if(Arr[i] <= Arr[j]) {
+			temp[k] = Arr[i];
+			k += 1; i += 1;
+		}
+		else {
+			temp[k] = Arr[j];
+			k += 1; j += 1;
+		}
+	}
+
+	// add elements left in the first interval 
+	while(i <= mid) {
+		temp[k] = Arr[i];
+		k += 1; i += 1;
+	}
+
+	// add elements left in the second interval 
+	while(j <= end) {
+		temp[k] = Arr[j];
+		k += 1; j += 1;
+	}
+
+	// copy temp to original interval
+	for(i = start; i <= end; i += 1) {
+		Arr[i] = temp[i - start];
+	}
+}
+}
+
+
+
+
+//heap sort
+package Sorting;
+
+public class Heapsort {
+public static void main(String args[]) {
+	int a[]= {1,4,3,2,5,6,7,8,30,9,11,45};
+	int n=a.length;
+	heapSort(a,n);
+	for(int i=0;i<n;i++) {
+		System.out.print(a[i]+" ");
+	}
+}
+static void maxheapify(int a[],int n,int i) {
+	int largest=i;
+	int l=(2*i)+1;
+	int r=(2*i)+2;
+	
+	if(l<n && a[l]>a[largest]) {
+		largest=l;
+	}
+	if(r<n && a[r]>a[largest]) {
+		largest=r;
+	}
+	if(largest!=i) {
+		//swap(a,largest,i);
+		int t=a[i];
+		a[i]=a[largest];
+		a[largest]=t;
+		maxheapify(a,n,largest);
+	}
+}
+static void heapSort(int a[],int n) {
+	int num=a.length;
+	for(int i=(n/2)-1;i>=0;i--) {
+		maxheapify(a,num,i);
+	}
+	for(int i=n-1;i>0;i--) {
+		int temp=a[0];
+		a[0]=a[i];
+		a[i]=temp;
+		maxheapify(a,i,0);
+	}
+}
+
+}
+
